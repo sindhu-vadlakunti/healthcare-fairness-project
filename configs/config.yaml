@@ -1,0 +1,100 @@
+# Healthcare Fairness Project Configuration
+
+# Project Settings
+project:
+  name: "Healthcare Fairness Research"
+  random_seed: 42
+  n_jobs: -1
+
+# Data Settings
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  datasets:
+    - name: "pima_diabetes"
+      url: "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
+      sensitive_attributes: ["Age"]
+      target: "Outcome"
+    - name: "adult_income"
+      url: "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
+      sensitive_attributes: ["sex", "race"]
+      target: "income"
+
+# Feature Engineering Settings
+feature_engineering:
+  interaction_terms: true
+  polynomial_features:
+    enabled: false  # Disable for much faster execution
+    degree: 2
+  binning:
+    enabled: true
+    method: 'quantile'
+    n_bins: 5
+  scaling:
+    method: "standard"  # standard, minmax, robust
+  feature_selection:
+    enabled: true
+    method: 'correlation'  # Changed from 'rfe' (which is very slow) to 'correlation' (very fast)
+    n_features: 20
+
+# Model Settings
+models:
+  baseline:
+    - logistic_regression
+    - naive_bayes
+    - decision_tree
+  ensemble:
+    - random_forest
+    - xgboost
+    - lightgbm
+    - voting_ensemble
+
+# Model Hyperparameters
+hyperparameters:
+  random_forest:
+    n_estimators: [100, 200, 300]
+    max_depth: [10, 20, 30, null]
+    min_samples_split: [2, 5, 10]
+  xgboost:
+    n_estimators: [100, 200, 300]
+    max_depth: [3, 5, 7]
+    learning_rate: [0.01, 0.1, 0.3]
+  lightgbm:
+    n_estimators: [100, 200, 300]
+    max_depth: [10, 20, 30]
+    learning_rate: [0.01, 0.1, 0.3]
+
+# Fairness Settings
+fairness:
+  metrics:
+    - demographic_parity_difference
+    - equalized_odds_difference
+    - disparate_impact
+  threshold: 0.1  # Acceptable fairness violation threshold
+  mitigation_techniques:
+    - threshold_optimizer
+    - reweighing
+    - adversarial_debiasing
+
+# Evaluation Settings
+evaluation:
+  cv_folds: 5
+  test_size: 0.2
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - roc_auc
+
+# Experiment Tracking
+mlflow:
+  tracking_uri: "file:./mlruns"
+  experiment_name: "healthcare_fairness"
+
+# Visualization Settings
+visualization:
+  style: "seaborn"
+  figure_size: [12, 8]
+  dpi: 300
+  save_format: "png"

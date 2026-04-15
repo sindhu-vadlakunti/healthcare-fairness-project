@@ -1,0 +1,42 @@
+# Environments
+.env
+.venv
+env/
+venv/
+venv_64/
+ENV/
+env.bak/
+venv.bak/
+
+# Python caching and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Results/Data (Exclude generated outputs from being baked into the image)
+results/
+logs/
+models/
+
+# Keep data structure but don't force large data files into the image directly
+data/*.csv
+data/*.xlsx
+# data/metadata.json 
+
+# Jupyter notebooks
+.ipynb_checkpoints
+
+# VSCode/IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore

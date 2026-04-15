@@ -1,0 +1,10 @@
+data/
+results/
+*.tar
+venv/
+venv_64/
+__pycache__/
+mlruns/
+logs/
+models/
+.env
