@@ -1,0 +1,5 @@
+Healthcare Fairness Project
+
+This project explores fairness in healthcare machine learning.
+
+Sample note: Models should be evaluated across different patient groups to help identify potential disparities and support equitable healthcare decisions.
